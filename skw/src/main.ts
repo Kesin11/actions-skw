@@ -1,19 +1,37 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {download, upload} from './skw'
+import {getExecOutput} from '@actions/exec'
+import {parseInputs} from './inputs'
+import {install} from './install'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const javaExists = await checkJavaExists()
+    if (!javaExists) {
+      throw new Error(
+        'java command is not found in runner. Please install java with actions/setup-java'
+      )
+    }
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const inputs = parseInputs()
+    const skwPath = await install(inputs.version)
 
-    core.setOutput('time', new Date().toTimeString())
+    switch (inputs.command) {
+      case 'upload':
+        await upload(skwPath, inputs)
+        break
+      case 'download':
+        await download(skwPath, inputs)
+        break
+    }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
+}
+
+async function checkJavaExists(): Promise<boolean> {
+  const result = await getExecOutput('java', ['-version'])
+  return result.exitCode === 0 ? true : false
 }
 
 run()

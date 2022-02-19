@@ -11,7 +11,7 @@ It just simple wrapper of `skw` command.
 - uses: actions/setup-java@v2
 - uses: Kesin11/actions-skw/skw@v1
   with:
-    skw-version: latest
+    skw-version: v0.1.2
     command: upload
     bucket: "gs://YOUR_GCS_BUCKET"
     key: "ARTIFACT_KEY"
@@ -19,7 +19,7 @@ It just simple wrapper of `skw` command.
       "${{ github.sha }}"
       "latest"
     prefix: "build_${{ github.run_number }}"
-    path: |
+    paths: |
       path/to/upload_file.txt
       path/to/dir
 ```
@@ -30,13 +30,12 @@ It just simple wrapper of `skw` command.
 - uses: actions/setup-java@v2
 - uses: Kesin11/actions-skw/skw@v1
   with:
-    skw-version: latest
+    skw-version: v0.1.2
     command: download
     bucket: "gs://YOUR_GCS_BUCKET"
     key: "ARTIFACT_KEY"
     tags: "latest"
-    prefix: "build_${{ github.run_number }}"
-    path: path/to/download/dir
+    paths: path/to/download/dir
 ```
 
 ----
