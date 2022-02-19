@@ -7,7 +7,7 @@ export type ActionsInputs = {
   bucket: string
   key: string
   tags: string[]
-  prefix: string
+  prefix?: string
   paths: string[]
 }
 
@@ -19,7 +19,7 @@ export function parseInputs(): ActionsInputs {
     key: getInput('key', {required: true}),
     tags: getMultilineInput('tags', {required: true}),
     paths: getMultilineInput('paths', {required: true}),
-    prefix: getInput('prefix')
+    prefix: getInput('prefix') || undefined
   }
 }
 

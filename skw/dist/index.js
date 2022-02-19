@@ -17,7 +17,7 @@ function parseInputs() {
         key: (0, core_1.getInput)('key', { required: true }),
         tags: (0, core_1.getMultilineInput)('tags', { required: true }),
         paths: (0, core_1.getMultilineInput)('paths', { required: true }),
-        prefix: (0, core_1.getInput)('prefix')
+        prefix: (0, core_1.getInput)('prefix') || undefined
     };
 }
 exports.parseInputs = parseInputs;
@@ -180,24 +180,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.download = exports.upload = void 0;
+exports.download = exports.upload = exports.createPrefixOptions = exports.createTagOptions = void 0;
 const exec_1 = __nccwpck_require__(514);
 function createTagOptions(tags) {
     return tags.flatMap(tag => ['-t', `${tag}`]);
 }
+exports.createTagOptions = createTagOptions;
+function createPrefixOptions(prefix) {
+    return prefix ? ['-p', 'prefix'] : [];
+}
+exports.createPrefixOptions = createPrefixOptions;
 function upload(skwPath, inputs) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, exec_1.exec)('java', [
             '-jar',
-            `${skwPath}`,
+            skwPath,
             'upload',
             '-b',
-            `${inputs.bucket}`,
+            inputs.bucket,
             '-k',
-            `${inputs.key}`,
+            inputs.key,
             ...createTagOptions(inputs.tags),
-            '-p',
-            `${inputs.prefix}`,
+            ...createPrefixOptions(inputs.prefix),
             ...inputs.paths
         ]);
     });
@@ -207,14 +211,14 @@ function download(skwPath, inputs) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, exec_1.exec)('java', [
             '-jar',
-            `${skwPath}`,
+            skwPath,
             'download',
             '-b',
-            `${inputs.bucket}`,
+            inputs.bucket,
             '-k',
-            `${inputs.key}`,
+            inputs.key,
             '-t',
-            `${inputs.tags[0]}`,
+            inputs.tags[0],
             inputs.paths[0]
         ]);
     });

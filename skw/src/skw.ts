@@ -5,21 +5,24 @@ export function createTagOptions(tags: string[]): string[] {
   return tags.flatMap(tag => ['-t', `${tag}`])
 }
 
+export function createPrefixOptions(prefix?: string): string[] {
+  return prefix ? ['-p', 'prefix'] : []
+}
+
 export async function upload(
   skwPath: string,
   inputs: ActionsInputs
 ): Promise<void> {
   exec('java', [
     '-jar',
-    `${skwPath}`,
+    skwPath,
     'upload',
     '-b',
-    `${inputs.bucket}`,
+    inputs.bucket,
     '-k',
-    `${inputs.key}`,
+    inputs.key,
     ...createTagOptions(inputs.tags),
-    '-p',
-    `${inputs.prefix}`,
+    ...createPrefixOptions(inputs.prefix),
     ...inputs.paths
   ])
 }
@@ -30,14 +33,14 @@ export async function download(
 ): Promise<void> {
   exec('java', [
     '-jar',
-    `${skwPath}`,
+    skwPath,
     'download',
     '-b',
-    `${inputs.bucket}`,
+    inputs.bucket,
     '-k',
-    `${inputs.key}`,
+    inputs.key,
     '-t',
-    `${inputs.tags[0]}`,
+    inputs.tags[0],
     inputs.paths[0]
   ])
 }
