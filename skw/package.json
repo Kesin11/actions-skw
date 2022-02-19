@@ -5,7 +5,7 @@
   "description": "Kesin11/actions-skw/skw",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
