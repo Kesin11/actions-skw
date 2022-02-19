@@ -16,6 +16,10 @@ on:
       - '**.md'
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: skw
+
 jobs:
   check-dist:
     runs-on: ubuntu-latest
@@ -50,4 +54,4 @@ jobs:
         if: ${{ failure() && steps.diff.conclusion == 'failure' }}
         with:
           name: dist
-          path: dist/
+          path: skw/dist/
