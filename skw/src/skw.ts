@@ -1,7 +1,7 @@
 import {ActionsInputs} from './inputs'
 import {exec} from '@actions/exec'
 
-function createTagOptions(tags: string[]): string[] {
+export function createTagOptions(tags: string[]): string[] {
   return tags.flatMap(tag => ['-t', `${tag}`])
 }
 
