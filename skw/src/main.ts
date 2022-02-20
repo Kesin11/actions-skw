@@ -30,7 +30,7 @@ async function run(): Promise<void> {
 }
 
 async function checkJavaExists(): Promise<boolean> {
-  const result = await getExecOutput('java', ['-version'])
+  const result = await getExecOutput('java', ['-version'], {silent: true})
   return result.exitCode === 0 ? true : false
 }
 

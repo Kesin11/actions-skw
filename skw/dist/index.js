@@ -155,7 +155,7 @@ function run() {
 }
 function checkJavaExists() {
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield (0, exec_1.getExecOutput)('java', ['-version']);
+        const result = yield (0, exec_1.getExecOutput)('java', ['-version'], { silent: true });
         return result.exitCode === 0 ? true : false;
     });
 }
