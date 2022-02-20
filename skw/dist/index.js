@@ -75,11 +75,10 @@ const core_1 = __nccwpck_require__(186);
 const TOOL_NAME = 'skw';
 function install(version) {
     return __awaiter(this, void 0, void 0, function* () {
-        const _version = `v${version}`;
-        let cachedPath = tc.find(TOOL_NAME, _version);
+        let cachedPath = tc.find(TOOL_NAME, version);
         if (!cachedPath) {
-            const jarPath = yield tc.downloadTool(`https://github.com/Kesin11/SkyWarehouse/releases/download/${_version}/skw.jar`);
-            cachedPath = yield tc.cacheFile(jarPath, 'skw.jar', TOOL_NAME, _version);
+            const jarPath = yield tc.downloadTool(`https://github.com/Kesin11/SkyWarehouse/releases/download/${version}/skw.jar`);
+            cachedPath = yield tc.cacheFile(jarPath, 'skw.jar', TOOL_NAME, version);
             (0, core_1.debug)(cachedPath);
         }
         (0, core_1.addPath)(cachedPath);
