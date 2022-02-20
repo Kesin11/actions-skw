@@ -1,11 +1,14 @@
 import {describe, expect, test, jest, afterEach} from '@jest/globals'
 import {createTagOptions, upload, download} from '../src/skw'
 import {ActionsInputs} from '../src/inputs'
-import exec from "@actions/exec"
+import exec, { getExecOutput } from "@actions/exec"
 
 jest.mock("@actions/exec", () => {
   return {
-    exec: jest.fn()
+    exec: jest.fn(),
+    getExecOutput: jest.fn(() => {
+      return { exitCode: 0 }
+    })
   }
 })
 
@@ -38,7 +41,7 @@ describe('upload', () => {
 
   test('Input all parameters', async () => {
     const inputs = baseInputs
-    const spy = jest.spyOn(exec, "exec")
+    const spy = jest.spyOn(exec, "getExecOutput")
 
     await upload(skwPath, inputs)
     expect(spy).lastCalledWith("java", [
@@ -54,7 +57,7 @@ describe('upload', () => {
 
   test('Input without prefix', async () => {
     const inputs = { ...baseInputs, prefix: undefined }
-    const spy = jest.spyOn(exec, "exec")
+    const spy = jest.spyOn(exec, "getExecOutput")
 
     await upload(skwPath, inputs)
     expect(spy).lastCalledWith("java", [
@@ -84,7 +87,7 @@ describe('download', () => {
 
   test('Input all parameters', async () => {
     const inputs = baseInputs
-    const spy = jest.spyOn(exec, "exec")
+    const spy = jest.spyOn(exec, "getExecOutput")
 
     await download(skwPath, inputs)
     expect(spy).lastCalledWith("java", [
@@ -102,7 +105,7 @@ describe('download', () => {
       tags: ["latest", "beta"],
       paths: ["downloadDir1", "downloadDir2"]
     }
-    const spy = jest.spyOn(exec, "exec")
+    const spy = jest.spyOn(exec, "getExecOutput")
 
     await download(skwPath, inputs)
     expect(spy).lastCalledWith("java", [

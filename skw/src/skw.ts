@@ -1,5 +1,5 @@
 import {ActionsInputs} from './inputs'
-import {exec} from '@actions/exec'
+import {getExecOutput} from '@actions/exec'
 
 export function createTagOptions(tags: string[]): string[] {
   return tags.flatMap(tag => ['-t', `${tag}`])
@@ -13,7 +13,7 @@ export async function upload(
   skwPath: string,
   inputs: ActionsInputs
 ): Promise<void> {
-  exec('java', [
+  const result = await getExecOutput('java', [
     '-jar',
     skwPath,
     'upload',
@@ -25,13 +25,14 @@ export async function upload(
     ...createPrefixOptions(inputs.prefix),
     ...inputs.paths
   ])
+  if (result.exitCode !== 0) throw new Error(result.stderr)
 }
 
 export async function download(
   skwPath: string,
   inputs: ActionsInputs
 ): Promise<void> {
-  exec('java', [
+  const result = await getExecOutput('java', [
     '-jar',
     skwPath,
     'download',
@@ -43,4 +44,5 @@ export async function download(
     inputs.tags[0],
     inputs.paths[0]
   ])
+  if (result.exitCode !== 0) throw new Error(result.stderr)
 }

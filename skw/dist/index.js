@@ -191,7 +191,7 @@ function createPrefixOptions(prefix) {
 exports.createPrefixOptions = createPrefixOptions;
 function upload(skwPath, inputs) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, exec_1.exec)('java', [
+        const result = yield (0, exec_1.getExecOutput)('java', [
             '-jar',
             skwPath,
             'upload',
@@ -203,12 +203,14 @@ function upload(skwPath, inputs) {
             ...createPrefixOptions(inputs.prefix),
             ...inputs.paths
         ]);
+        if (result.exitCode !== 0)
+            throw new Error(result.stderr);
     });
 }
 exports.upload = upload;
 function download(skwPath, inputs) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, exec_1.exec)('java', [
+        const result = yield (0, exec_1.getExecOutput)('java', [
             '-jar',
             skwPath,
             'download',
@@ -220,6 +222,8 @@ function download(skwPath, inputs) {
             inputs.tags[0],
             inputs.paths[0]
         ]);
+        if (result.exitCode !== 0)
+            throw new Error(result.stderr);
     });
 }
 exports.download = download;
