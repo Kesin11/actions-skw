@@ -13,7 +13,7 @@ export type ActionsInputs = {
 
 export function parseInputs(): ActionsInputs {
   return {
-    version: getInput('version', {required: true}),
+    version: getInput('skw-version', {required: true}),
     command: validateCommand(getInput('command', {required: true})),
     bucket: getInput('bucket', {required: true}),
     key: getInput('key', {required: true}),

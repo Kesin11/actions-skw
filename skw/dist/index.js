@@ -11,7 +11,7 @@ exports.parseInputs = void 0;
 const core_1 = __nccwpck_require__(186);
 function parseInputs() {
     return {
-        version: (0, core_1.getInput)('version', { required: true }),
+        version: (0, core_1.getInput)('skw-version', { required: true }),
         command: validateCommand((0, core_1.getInput)('command', { required: true })),
         bucket: (0, core_1.getInput)('bucket', { required: true }),
         key: (0, core_1.getInput)('key', { required: true }),
