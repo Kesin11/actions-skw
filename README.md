@@ -16,9 +16,9 @@ It just simple wrapper of `skw` command.
     bucket: "gs://YOUR_GCS_BUCKET"
     key: "ARTIFACT_KEY"
     tags: |
-      "${{ github.sha }}"
+      "${{ github.run_number }}"
       "latest"
-    prefix: "build_${{ github.run_number }}"
+    prefix: "skw"
     paths: |
       path/to/upload_file.txt
       path/to/dir

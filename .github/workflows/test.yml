@@ -24,6 +24,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Restore and export service account to ENV for GCS remote cache
+        run: |
+          echo $GCS_SERVICE_ACCOUNT | base64 --decode --ignore-garbage > service.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=service.json" >> $GITHUB_ENV
+        if: env.GCS_SERVICE_ACCOUNT
+        env:
+          GCS_SERVICE_ACCOUNT: ${{ secrets.GCS_SERVICE_ACCOUNT }}
+      
+      # Upload
+      - name: Create dummy file
+        run: echo "Dummy file ${{ github.run_number }}" > skw_dummy.txt
       - uses: ./skw
         with:
-          milliseconds: 1000
+          skw-version: v0.1.2
+          command: upload
+          bucket: "gs://kesin11_bazel_cache"
+          key: "actions-skw-skw"
+          tags: |
+            "${{ github.run_number }}"
+            "latest"
+          prefix: "skw"
+          paths: |
+            skw/skw_dummy.txt
+
+      # Download
+      - uses: ./skw
+        with:
+          skw-version: v0.1.2
+          command: download
+          bucket: "gs://kesin11_bazel_cache"
+          key: "actions-skw-skw"
+          tags: "${{ github.run_number }}"
+          paths: skw/download
+      
+      - name: Vefiry download file
+        run: cat download/skw_dummy.txt
+      
