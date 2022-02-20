@@ -187,7 +187,7 @@ function createTagOptions(tags) {
 }
 exports.createTagOptions = createTagOptions;
 function createPrefixOptions(prefix) {
-    return prefix ? ['-p', 'prefix'] : [];
+    return prefix ? ['-p', prefix] : [];
 }
 exports.createPrefixOptions = createPrefixOptions;
 function upload(skwPath, inputs) {

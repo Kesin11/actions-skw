@@ -6,7 +6,7 @@ export function createTagOptions(tags: string[]): string[] {
 }
 
 export function createPrefixOptions(prefix?: string): string[] {
-  return prefix ? ['-p', 'prefix'] : []
+  return prefix ? ['-p', prefix] : []
 }
 
 export async function upload(

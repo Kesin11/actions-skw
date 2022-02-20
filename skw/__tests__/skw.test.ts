@@ -32,7 +32,7 @@ describe('upload', () => {
     bucket: "gs://test",
     key: "test",
     tags: ["latest", "beta"],
-    prefix: "prefix",
+    prefix: "test_prefix",
     paths: ["test.js", "test.ts"],
   }
   afterEach(() => {
