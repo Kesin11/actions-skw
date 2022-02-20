@@ -5,9 +5,6 @@ on: # rebuild any PRs and main branch changes
     branches:
       - main
       - 'releases/*'
-defaults:
-  run:
-    working-directory: skw
 
 jobs:
   build: # make sure build/ci work properly
@@ -26,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Restore and export service account to ENV for GCS remote cache
         run: |
-          echo $GCS_SERVICE_ACCOUNT | base64 --decode --ignore-garbage > service.json
+          echo $GCS_SERVICE_ACCOUNT > service.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=service.json" >> $GITHUB_ENV
         if: env.GCS_SERVICE_ACCOUNT
         env:
@@ -46,7 +43,7 @@ jobs:
             "latest"
           prefix: "skw"
           paths: |
-            skw/skw_dummy.txt
+            skw_dummy.txt
 
       # Download
       - uses: ./skw
@@ -56,7 +53,7 @@ jobs:
           bucket: "gs://kesin11_bazel_cache"
           key: "actions-skw-skw"
           tags: "${{ github.run_number }}"
-          paths: skw/download
+          paths: download
       
       - name: Vefiry download file
         run: cat download/skw_dummy.txt
