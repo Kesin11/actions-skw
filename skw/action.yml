@@ -1,11 +1,29 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Github Actions for skw'
+description: 'It just simple wrapper of `skw` command'
+author: 'kesin1202000@gmail.com'
+
 inputs:
-  milliseconds: # change this
+  skw-version:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: '`skw` version'
+  command:
+    required: true
+    description: 'skw command. Only support upload or download'
+  bucket:
+    required: true
+    description: 'GCS bucket path (gs://XXXX)'
+  key:
+    required: true
+    description: 'Key of artifact'
+  tags:
+    required: true
+    description: 'Tags of artifact'
+  paths:
+    required: true
+    description: 'when upload: upload file paths. when download: download directory path.'
+  prefix:
+    required: false
+    description: 'Prefix path in GCS'
 runs:
   using: 'node12'
   main: 'dist/index.js'
