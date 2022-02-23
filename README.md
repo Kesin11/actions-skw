@@ -13,12 +13,12 @@ It just simple wrapper of `skw` command.
   with:
     skw-version: v0.2.0
     command: upload
-    bucket: "gs://YOUR_GCS_BUCKET"
-    key: "ARTIFACT_KEY"
+    bucket: gs://YOUR_GCS_BUCKET
+    key: ARTIFACT_KEY
     tags: |
-      "${{ github.run_number }}"
-      "latest"
-    prefix: "skw"
+      ${{ github.run_number }}
+      latest
+    prefix: skw
     paths: |
       path/to/upload_file.txt
       path/to/dir
@@ -32,9 +32,9 @@ It just simple wrapper of `skw` command.
   with:
     skw-version: v0.2.0
     command: download
-    bucket: "gs://YOUR_GCS_BUCKET"
-    key: "ARTIFACT_KEY"
-    tags: "latest"
+    bucket: gs://YOUR_GCS_BUCKET
+    key: ARTIFACT_KEY
+    tags: latest
     paths: path/to/download/dir
 ```
 

@@ -36,12 +36,12 @@ jobs:
         with:
           skw-version: v0.2.0
           command: upload
-          bucket: "gs://kesin11_bazel_cache"
-          key: "actions-skw-skw"
+          bucket: gs://kesin11_bazel_cache
+          key: actions-skw-skw
           tags: |
-            "${{ github.run_number }}"
-            "latest"
-          prefix: "skw"
+            ${{ github.run_number }}
+            latest
+          prefix: skw
           paths: |
             skw_dummy.txt
 
@@ -50,10 +50,10 @@ jobs:
         with:
           skw-version: v0.2.0
           command: download
-          bucket: "gs://kesin11_bazel_cache"
-          key: "actions-skw-skw"
-          tags: "${{ github.run_number }}"
-          paths: download
+          bucket: gs://kesin11_bazel_cache
+          key: actions-skw-skw
+          tags: ${{ github.run_number }}
+          paths: ./download
       
       - name: Vefiry download file
         run: cat download/skw_dummy.txt
