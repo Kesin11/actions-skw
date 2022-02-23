@@ -34,7 +34,7 @@ jobs:
         run: echo "Dummy file ${{ github.run_number }}" > skw_dummy.txt
       - uses: ./skw
         with:
-          skw-version: v0.1.2
+          skw-version: v0.2.0
           command: upload
           bucket: "gs://kesin11_bazel_cache"
           key: "actions-skw-skw"
@@ -48,7 +48,7 @@ jobs:
       # Download
       - uses: ./skw
         with:
-          skw-version: v0.1.2
+          skw-version: v0.2.0
           command: download
           bucket: "gs://kesin11_bazel_cache"
           key: "actions-skw-skw"

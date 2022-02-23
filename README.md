@@ -11,7 +11,7 @@ It just simple wrapper of `skw` command.
 - uses: actions/setup-java@v2
 - uses: Kesin11/actions-skw/skw@v1
   with:
-    skw-version: v0.1.2
+    skw-version: v0.2.0
     command: upload
     bucket: "gs://YOUR_GCS_BUCKET"
     key: "ARTIFACT_KEY"
@@ -30,7 +30,7 @@ It just simple wrapper of `skw` command.
 - uses: actions/setup-java@v2
 - uses: Kesin11/actions-skw/skw@v1
   with:
-    skw-version: v0.1.2
+    skw-version: v0.2.0
     command: download
     bucket: "gs://YOUR_GCS_BUCKET"
     key: "ARTIFACT_KEY"
