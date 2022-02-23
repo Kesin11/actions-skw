@@ -56,5 +56,5 @@ jobs:
           paths: ./download
       
       - name: Vefiry download file
-        run: cat download/skw_dummy.txt
+        run: cat download/skw/skw_dummy.txt
       
