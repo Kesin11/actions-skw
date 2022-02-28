@@ -9,7 +9,7 @@ It just simple wrapper of `skw` command.
 
 ```yaml
 - uses: actions/setup-java@v2
-- uses: Kesin11/actions-skw/skw@v1
+- uses: Kesin11/actions-skw/skw@v0.1
   with:
     skw-version: v0.2.0
     command: upload
@@ -28,7 +28,7 @@ It just simple wrapper of `skw` command.
 
 ```yaml
 - uses: actions/setup-java@v2
-- uses: Kesin11/actions-skw/skw@v1
+- uses: Kesin11/actions-skw/skw@v0.1
   with:
     skw-version: v0.2.0
     command: download
